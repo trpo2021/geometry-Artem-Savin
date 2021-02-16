@@ -1,0 +1,4 @@
+*.o
+.geometry.c.swp
+geometry.c~
+#geometry.c#
