@@ -1,10 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <math.h>
-//#define M_PI
+#define N 150
 
-void validation(char* str, int max_symb)
+int Skip_Space(const char* str, int i)
+{
+    while (str[i] == ' ')
+        i++;
+    return i;
+}
+
+int Convert_String(char* str, int par)
+{
+    char* nstr;
+    nstr = str;
+    double r = strtod(nstr, &nstr);
+    if (r == 0 || strlen(nstr) > 0) {
+        return -1;
+    }
+
+    return r;
+}
+
+void Correct_Writing(const char* str, int max_symb, char* otvet)
 {
     char check_str[] = "circle";
     int i, j;
@@ -12,26 +30,24 @@ void validation(char* str, int max_symb)
     double x, y, r;
     printf("\n\n");
 
-    for (i = 0; i < strlen(check_str); i++) {
-        if (str[i] != check_str[i]) {
-            printf("Mistake! Invalid input\n");
-            printf("\"%s\" Not found \nDid you mean \"circle\"?\n", str);
-            exit(0);
-        }
+    if (strncmp(str, check_str, 6) != 0) {
+        sprintf(otvet,
+                "Mistake! Invalid input\n \"%s\" Not found \nDid you mean "
+                "\"circle\"?\n",
+                str);
+        return;
     }
+    i = 6;
 
-    while (str[i] == ' ')
-        i++;
+    i = Skip_Space(str, i);
 
     if (str[i] != '(') {
-        printf("Mistake! Invalid input\n");
-        printf("Not found '('\n");
-        exit(0);
+        sprintf(otvet, "Mistake! Invalid input\nNot found '('\n");
+        return;
     }
     i++;
 
-    while (str[i] == ' ')
-        i++;
+    i = Skip_Space(str, i);
 
     j = 0;
     while (str[i] != ' ') {
@@ -39,15 +55,14 @@ void validation(char* str, int max_symb)
         i++;
         j++;
         if (j > 30) {
-            printf("Mistake! Invalid input\n");
-            printf("Not found parametr function\n");
-            exit(0);
+            sprintf(otvet,
+                    "Mistake! Invalid input\nNot found parametr function\n");
+            return;
         }
     }
     sx[j] = '\0';
 
-    while (str[i] == ' ')
-        i++;
+    i = Skip_Space(str, i);
 
     j = 0;
     while ((str[i] != ',') && (str[i] != ' ')) {
@@ -55,22 +70,20 @@ void validation(char* str, int max_symb)
         i++;
         j++;
         if (j > 30) {
-            printf("Mistake! Invalid input\n");
-            printf("Not found parametr function\n");
-            exit(0);
+            sprintf(otvet,
+                    "Mistake! Invalid input\nNot found parametr function\n");
+            return;
         }
     }
     sy[j] = '\0';
 
     if (str[i] != ',') {
-        printf("Mistake! Invalid input\n");
-        printf("Not found ','\n");
-        exit(0);
+        sprintf(otvet, "Mistake! Invalid input\nNot found ','\n");
+        return;
     }
     i++;
 
-    while (str[i] == ' ')
-        i++;
+    i = Skip_Space(str, i);
 
     j = 0;
     while ((str[i] != ')') && (str[i] != ' ')) {
@@ -78,80 +91,64 @@ void validation(char* str, int max_symb)
         i++;
         j++;
         if (j > 30) {
-            printf("Mistake! Invalid input\n");
-            printf("Not found parametr function\n");
-            exit(0);
+            sprintf(otvet,
+                    "Mistake! Invalid input\nNot found parametr function\n");
+            return;
         }
     }
     sr[j] = '\0';
 
     if (str[i] != ')') {
-        printf("Mistake! Invalid input\n");
-        printf("Not found ')'\n");
-        exit(0);
+        sprintf(otvet, "Mistake! Invalid input\nNot found ')'\n");
+        return;
     }
+
     if (i >= strlen(str)) {
-        printf("Mistake! Invalid input\n");
-        printf("Not found ')'\n");
-        exit(0);
+        sprintf(otvet, "Mistake! Invalid input\nNot found ')'\n");
+        return;
     }
     i++;
 
-    while (str[i] == ' ')
-        i++;
+    i = Skip_Space(str, i);
     if ((i + 1) < strlen(str)) {
-        printf("Mistake! Invalid input\n");
-        printf("Unexpected token\n");
-        exit(0);
+        sprintf(otvet, "Mistake! Invalid input\nUnexpected token\n");
+        return;
     }
 
-    char* nstr;
-    nstr = sx;
-    x = strtod(nstr, &nstr);
-    if (x == 0 || strlen(nstr) > 0) {
-        printf("Mistake! Invalid input\n");
-        printf("Parametr X\n");
-        exit(0);
+    x = Convert_String(sx, 1);
+    y = Convert_String(sy, 2);
+    r = Convert_String(sr, 3);
+
+    if (x == -1) {
+        sprintf(otvet, "Mistake! Invalid input\nParametr X\n");
+        return;
     }
-
-    nstr = sy;
-    y = strtod(nstr, &nstr);
-    if (y == 0 || strlen(nstr) > 0) {
-        printf("Mistake! Invalid input\n");
-        printf("Parametr Y\n");
-        exit(0);
+    if (y == -1) {
+        sprintf(otvet, "Mistake! Invalid input\nParametr Y\n");
+        return;
     }
-
-    nstr = sr;
-    r = strtod(nstr, &nstr);
-    if (r == 0 || strlen(nstr) > 0) {
-        printf("Mistake! Invalid input\n");
-        printf("Parametr R\n");
-        exit(0);
+    if (r == -1) {
+        sprintf(otvet, "Mistake! Invalid input\nParametr R\n");
+        return;
     }
-
-    // Для площади и периметра
-    // double p = 2 * M_PI * r;
-    // double s = M_PI * r * r;
-
-    // printf("\nsx=%s\n", sx);
-    // printf("\nsy=%s\n", sy);
-    // printf("\nsr=%s\n", sr);
-    // printf("\nperimetr=%f\n", p);
-    // printf("\narea=%f\n", s);
 }
 
 int main()
 {
-    const int max_symb = 40;
+    int max_symb = 40;
     FILE* input;
+    char otvet[N];
     input = fopen("input.txt", "r");
-    if (input == NULL)
+    if (input == NULL) {
         printf("Error open file\n");
+        return 1;
+    }
     char source_str[max_symb];
     fgets(source_str, max_symb, input);
+
     fputs(source_str, stdout);
-    validation(source_str, max_symb);
+    Correct_Writing(source_str, max_symb, otvet);
+    printf("%s\n", otvet);
 
     return 0;
 }
