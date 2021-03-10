@@ -1,4 +1,5 @@
 #include <libgeometry/geometry.h>
+#include <stdio.h>
 
 int main()
 {
