@@ -1,16 +1,17 @@
 #include "geometry.h"
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int Skip_Space(const char* str, int i)
+static int Skip_Space(const char* str, int i)
 {
     while (str[i] == ' ')
         i++;
     return i;
 }
 
-int Convert_String(char* str)
+static int Convert_String(char* str)
 {
     char* nstr;
     nstr = str;
@@ -21,7 +22,7 @@ int Convert_String(char* str)
     return r;
 }
 
-int Get_Parametr(const char* str, int i, char* sx)
+static int Get_Parametr(const char* str, int i, char* sx)
 {
     int j = 0;
     char s[10] = "";
