@@ -11,15 +11,13 @@ static int Skip_Space(const char* str, int i)
     return i;
 }
 
-static int Convert_String(char* str)
+static int Convert_String(char* str, double* r)
 {
     char* nstr;
     nstr = str;
-    double r = strtod(nstr, &nstr);
-    if (r == 0 || strlen(nstr) > 0) {
-        return -1;
-    }
-    return r;
+    if (sscanf(str, "%lf", r) == 0)
+        return 0;
+    return 1;
 }
 
 static int Get_Parametr(const char* str, int i, char* sx)
@@ -39,14 +37,12 @@ static int Get_Parametr(const char* str, int i, char* sx)
     return i;
 }
 
-void Correct_Writing(const char* str, char* result)
+void Correct_Writing(const char* str, TCircle* circle, char* result)
 {
     char check_str[] = "circle";
     size_t i;
     size_t j = -1;
     char sx[10] = "", sy[10] = "", sr[10] = "";
-    double x, y, r;
-    printf("\n\n");
 
     if (strncmp(str, check_str, strlen(check_str)) != 0) {
         sprintf(result,
@@ -55,7 +51,7 @@ void Correct_Writing(const char* str, char* result)
                 str);
         return;
     }
-    i = 6;
+    i = strlen(check_str);
 
     i = Skip_Space(str, i);
     if (str[i] != '(') {
@@ -111,24 +107,18 @@ void Correct_Writing(const char* str, char* result)
         return;
     }
 
-    x = Convert_String(sx);
-    y = Convert_String(sy);
-    r = Convert_String(sr);
-
-    if (x == j) {
+    if (!Convert_String(sx, &circle->x)) {
         sprintf(result, "Mistake! Invalid input\nParametr X\n");
         return;
     }
-    if (y == j) {
+    if (!Convert_String(sy, &circle->y)) {
         sprintf(result, "Mistake! Invalid input\nParametr Y\n");
         return;
     }
-    if (r == -1) {
+    if (!Convert_String(sr, &circle->r)) {
         sprintf(result, "Mistake! Invalid input\nParametr R\n");
         return;
     }
 
-    double p = 2 * M_PI * r;
-    double s = M_PI * r * r;
-    sprintf(result, "\nperimetr=%f\narea=%f\n", p, s);
+    result[0] = 0;
 }
