@@ -1,3 +1,21 @@
-#pragma once
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
 
-void Correct_Writing(const char* str, char* result);
+#include <stdio.h>
+
+struct TCircle {
+    double x, y, r;
+    double p, s;
+
+    void Calculate_area_and_perimeter()
+    {
+        const double pi = 3.141592;
+        double p = 2 * pi * r;
+        double s = pi * r * r;
+        printf("perimetr=%f\narea=%f\n", p, s);
+    }
+};
+
+void Correct_Writing(const char* str, TCircle* circle, char* result);
+
+#endif
