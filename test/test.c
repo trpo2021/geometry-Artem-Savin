@@ -1,5 +1,6 @@
 #include <ctest.h>
 #include <libgeometry/geometry.h>
+#include <stdio.h>
 
 CTEST(suite, test1)
 {
