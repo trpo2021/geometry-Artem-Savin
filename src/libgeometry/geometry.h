@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-struct TCircle {
+typedef struct {
     double x, y, r;
     double p, s;
 
@@ -13,9 +13,9 @@ struct TCircle {
         double p = 2 * pi * r;
         double s = pi * r * r;
         printf("perimetr=%f\narea=%f\n", p, s);
+        return;
     }
-};
+} TCircle;
 
 void Correct_Writing(const char* str, TCircle* circle, char* result);
-
 #endif
