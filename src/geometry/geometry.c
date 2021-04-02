@@ -8,7 +8,7 @@ double sqr( double v )
     return v*v;    
 }
 
-int main() // int argc, char* argv[])
+int main()
 {
     const int max_symb = 40;
     FILE *input;
