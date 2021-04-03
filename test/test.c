@@ -3,7 +3,7 @@
 
 #define CTEST_MAIN
 #include "ctest.h"
-#include "geomerty.h"
+#include "geometry\geometry.h"
 
 CTEST(suite, test1)
 {
