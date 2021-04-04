@@ -54,7 +54,8 @@ int main()
         for (int j = i + 1; j < cnt; j++) {
             c2 = lst[j];
 
-            if (sqr(c->x - c2->x) + sqr(c->y - c2->y) <= abs(c->r - c2->r))
+            if (sqr(c->x - c2->x) + sqr(c->y - c2->y)
+                <= abs((int)(c->r - c2->r)))
                 printf("Circle %d and %d intersects\n", i, j);
         }
     }
