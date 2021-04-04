@@ -1,6 +1,6 @@
 APP_NAME = geometry
 APP_NAME_TEST = geometry_test
-LIB_NAME = libgeometry
+LIB_NAME = geometry
 
 CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -I src -MP -MMD
