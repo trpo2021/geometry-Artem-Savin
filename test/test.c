@@ -1,9 +1,9 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#define CTEST_MAIN
+// #define CTEST_MAIN
+#include "../src/geometry/geometry.h"
 #include "ctest.h"
-#include "geometry\geometry.h"
 
 CTEST(suite, test1)
 {
@@ -12,7 +12,7 @@ CTEST(suite, test1)
 
 CTEST(suite, test2)
 {
-    TCircle c;
+    struct TCircle c;
     char result[1000];
 
     Correct_Writing("", &c, result);
@@ -22,7 +22,7 @@ CTEST(suite, test2)
 
 CTEST(suite, test3)
 {
-    TCircle c;
+    struct TCircle c;
     char result[1000];
 
     Correct_Writing("oval(10 10, 5)", &c, result);
@@ -32,7 +32,7 @@ CTEST(suite, test3)
 
 CTEST(suite, test4)
 {
-    TCircle c;
+    struct TCircle c;
     char result[1000];
 
     Correct_Writing("circle( 10 )", &c, result);
@@ -42,7 +42,7 @@ CTEST(suite, test4)
 
 CTEST(suite, test5)
 {
-    TCircle c;
+    struct TCircle c;
     char result[1000];
 
     Correct_Writing("circle( 10,10,10 )", &c, result);
@@ -52,7 +52,7 @@ CTEST(suite, test5)
 
 CTEST(suite, test6)
 {
-    TCircle c;
+    struct TCircle c;
     char result[1000];
 
     Correct_Writing("circle)", &c, result);
