@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double sqr(double v)
+static double sqr(double v)
 {
     return v * v;
 }
